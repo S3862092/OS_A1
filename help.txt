@@ -1,4 +1,7 @@
 Linux filtering commands: 
     https://www.youtube.com/watch?v=RynYYIrFlJ8
 
+Command line quick tips:
+    https://fedoramagazine.org/command-line-quick-tips-wc-sort-sed-and-tr/
+    
 
