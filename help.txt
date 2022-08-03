@@ -1,7 +1,30 @@
+----------------------
+Useful Links
+----------------------
+
 Linux filtering commands: 
     https://www.youtube.com/watch?v=RynYYIrFlJ8
 
 Command line quick tips:
     https://fedoramagazine.org/command-line-quick-tips-wc-sort-sed-and-tr/
-    
 
+GNU coreutils documentation:
+    https://www.gnu.org/software/coreutils/manual/coreutils.html#uniq-invocation
+
+Grep:
+    https://phoenixnap.com/kb/grep-command-linux-unix-examples
+
+    https://phoenixnap.com/kb/grep-multiple-strings -->for patterns
+
+----------------------
+Filtering Rule
+----------------------
+1) Sort file first
+2) Remove duplicates
+2) Remove any numerical words such as 7th, 8
+
+----------------------
+Progress 1
+----------------------
+1. Working on the first list text file
+2. Sorted it, and output into list1.txt

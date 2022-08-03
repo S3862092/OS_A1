@@ -1,0 +1,22 @@
+grep format: grep [options] [regexp] [filename]
+
+grep -n -- 'f.*\.c$' *g*.h /dev/null  -->output any line containing "f" and ending in ".c" within all files in the
+                                         current directory whose names contain “g” and end in “.h”.
+
+
+----------------------------------------------
+POSSIBLE CODE TO TRY (finding 's)
+----------------------------------------------
+1) grep [0-9]th list1.txt               --> find numbers ending with 'th'
+
+2) grep [A-Za-z]"'s" list1.txt          --> find words that ends with "'s"
+
+3) grep -E 'hi|bc' list1.txt            --> -E means extended-regexp; | is alternation A pattern containing this operator 
+                                             separately matches the parts on either side of it; 
+                                             if either one is found, the line containing it is a match.
+4)grep ^ar list1.txt                    --> find words that starts with "ar". In grep command, caret Symbol ^ matches the 
+                                            expression at the start of a line
+
+5)grep ^[0-9] list1.txt                 -->finds all words that starts with a number     
+
+6)grep ^[.] list1.txt                   -->finds all words that begins with a full stop
