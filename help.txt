@@ -16,15 +16,6 @@ Grep:
 
     https://phoenixnap.com/kb/grep-multiple-strings -->for patterns
 
-----------------------
-Filtering Rule
-----------------------
-1) Sort file first
-2) Remove duplicates
-2) Remove any numerical words such as 7th, 8
+sed: 
+    https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 
-----------------------
-Progress 1
-----------------------
-1. Working on the first list text file
-2. Sorted it, and output into list1.txt

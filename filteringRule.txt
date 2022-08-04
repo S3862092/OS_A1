@@ -1,0 +1,7 @@
+----------------------
+Filtering Rule
+----------------------
+1) Sort file first. (According to ASCII)
+2) Individualy removed unknown objects e.g. common diamond '?'
+2) Filter out numbers from the sorted file. Use grep to find the line number
+3) Use sed to remove the lines from the file
