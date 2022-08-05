@@ -1,7 +1,102 @@
 ----------------------
-Filtering Rule
+Filtering Rule (wlist_1)
 ----------------------
-1) Sort file first. (According to ASCII)
-2) Individualy removed unknown objects e.g. common diamond '?'
-2) Filter out numbers from the sorted file. Use grep to find the line number
-3) Use sed to remove the lines from the file
+        *Use sed to remove the lines from the file. Use grep to check*
+
+1) Sort file first. (According to ASCII) --> sorted1.txt
+2) Individualy removed unknown objects e.g. common diamond '?'   -->removed_object.txt
+2) Filter out numbers from the sorted file. Use grep to find the line number       -->removed_numericals.txt
+3) Filter out websites containing ".com"                -->sed '/.com/d' removed_numericals.txt > removed_dotCom.txt
+4) Filter out all string with 2 or more occurecnces of 'a'. This ignore apostrophes, but not other punctuations in between  
+        --> sed -E "/a[^b-zB-Z']{2,}/d" removed_dotCom.txt > removeAAAs.txt
+
+5) Same with 4 but with 'b's 
+        --> grep -E "b[^ac-zAC-Z']{2,}" removeAAAs.txt
+        --> sed -E "/b[^ac-zAC-Z]{2,}/d" removeAAAs.txt > removeBBBs.txt
+
+6)Same with 4 but with 'c's 
+        --> grep -E "c[^abd-zABD-Z']{2,}" removeBBBs.txt
+        --> sed -E "/c[^abd-zABD-Z']{2,}/d" removeBBBs.txt > removeCCCs.txt
+
+6)Same with 4 but with 'd's 
+        --> grep -E "d[^a-ce-zA-CE-Z']{2,}" removeCCCs.txt
+        --> sed -E "/d[^a-ce-zA-CE-Z']{2,}/d" removeCCCs.txt > removeDDDs.txt 
+
+7)Same with 4 but with 'e's 
+        --> grep -E "e[^a-df-zA-DF-Z']{2,}" removeDDDs.txt
+
+8)Same with 4 but with 'f's 
+        --> grep -E "f[^a-eg-zA-eG-Z']{2,}" removesEEE.txt
+
+9)Same with 4 but with 'g's 
+        --> grep -E "g[^a-fh-zA-FH-Z']{2,}" removeFFFs.txt
+
+10)Same with 4 but with 'H's 
+        --> grep -E "h[^a-gi-zA-GI-Z']{2,}" removeGGGs.txt
+
+
+11)Same with 4 but with 'I's 
+        --> grep -E "i[^a-hj-zA-hj-Z']{2,}" removeHHHs.txt
+
+12)Same with 4 but with 'J's 
+        --> grep -E "j[^a-ik-zA-IK-Z']{2,}" removeIIIs.txt
+
+13)Same with 4 but with 'K's 
+        --> grep -E "K[^a-jm-zA-JM-Z']{2,}" removeJJJs.txt
+
+14)Same with 4 but with 'M's
+        --> grep -E "M[^a-kn-zA-KN-Z']{2,}" removeKKKs.txt
+
+14)Same with 4 but with 'N's
+        --> grep -E "n[^a-ml-zA-ML-Z']{2,}" removeMMMs.txt
+
+15)Same with 4 but with 'L's
+        --> grep -E "l[^a-no-zA-NO-Z']{2,}" removeNNNs.txt              
+
+16)Same with 4 but with 'O's
+        --> grep -E "o[^a-mL-zA-ML-Z']{2,}" removeKKKs.txt
+
+17)Same with 4 but with 'P's
+        --> grep -E "p[^a-oq-zA-OQ-Z']{2,}" removeOOOs.txt
+
+18)Same with 4 but with 'Q's
+        --> grep -E "q[^a-pr-zA-PR-Z']{2,}" removePPPs.txt
+
+19)Same with 4 but with 'R's
+        --> grep -E "r[^a-qs-zA-QS-Z']{2,}" removeQQQs.txt
+
+20)Same with 4 but with 'S's
+        --> grep -E "s[^a-rt-zA-RT-Z']{2,}" removeQQQs.txt                      
+
+21)Same with 4 but with 'T's
+        --> grep -E "t[^a-su-zA-SU-Z']{2,}" removeSSSs.txt       
+
+22)Same with 4 but with 'U's
+        --> grep -E "u[^a-tv-zA-TV-Z']{2,}" removeTTTs.txt  
+
+23)Same with 4 but with 'V's
+        --> grep -E "v[^a-uw-zA-UW-Z']{2,}" removeUUUs.txt  
+
+24)Same with 4 but with 'W's
+        --> grep -E "w[^a-vx-zA-VX-Z']{2,}" removeVVVs.txt              STUVWXYZ
+
+25)Same with 4 but with 'X's
+        --> grep -E "x[^a-wy-zA-WY-Z']{2,}" removeWWWs.txt  
+
+26)Same with 4 but with 'Y's
+        --> grep -E "y[^a-xz-zA-RXZ-Z']{2,}" removeXXXs.txt  
+
+27)Same with 4 but with 'Z's
+        --> grep -E "z[^a-yA-Y']{2,}" removeYYYs.txt  
+
+
+
+
+
+
+4) Filter out repetitive characters such as aaaaa       -->sed '/^aa*a$/d' removed_dotCom.txt > removedRepA.txt
+5) Filter out repetitive characters such as bbbbb       -->sed '/^bb*b$/d' removedRepA.txt > removedRepB.txt
+
+
+SAVE TEST
+ - grep -E '^aa*a$|^bb*b$|^cc*c$|^dd*d$|^ee*e$|^dd*d$' removed_AAAs.txt > test.txt

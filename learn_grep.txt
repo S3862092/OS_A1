@@ -20,3 +20,9 @@ POSSIBLE CODE TO TRY (finding 's)
 5)grep ^[0-9] list1.txt                 -->finds all words that starts with a number     
 
 6)grep ^[.] list1.txt                   -->finds all words that begins with a full stop
+
+7)grep b.b list1.txt                    -->finds words with the expression b<any char>b
+
+8) grep \\. list1.txt                   -->finds words with fullstops. Must use \\
+
+9) grep ^aa*a$ removed_dotCom.txt       -->finds lines with only as

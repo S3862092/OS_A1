@@ -9,12 +9,18 @@ Command line quick tips:
     https://fedoramagazine.org/command-line-quick-tips-wc-sort-sed-and-tr/
 
 GNU coreutils documentation:
-    https://www.gnu.org/software/coreutils/manual/coreutils.html#uniq-invocation
+    https://www.gnu.org/software/grep/manual/grep.html#Regular-Expressions
 
 Grep:
     https://phoenixnap.com/kb/grep-command-linux-unix-examples
 
     https://phoenixnap.com/kb/grep-multiple-strings -->for patterns
+
+    https://docs.oracle.com/cd/E19253-01/806-7612/filesearch-96061/index.html
+
+    https://stackoverflow.com/questions/7068751/regex-to-find-two-or-more-consecutive-chars --> finding consecutive chars
+
+    https://stackoverflow.com/questions/47545450/regex-match-any-single-character-one-character-only
 
 sed: 
     https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
