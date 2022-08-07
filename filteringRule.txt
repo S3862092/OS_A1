@@ -1,7 +1,133 @@
 ----------------------
-Filtering Rule (wlist_1)
+Filtering Rule (fullList.txt)
 ----------------------
         *Use sed to remove the lines from the file. Use grep to check*
+
+1) Sort according to alphabets (ascending) --> sortedFL.txt
+2) This command works for finding diamond question mark:
+        -->grep -axv '.*' sortedFL.txt
+        -->grep -n -axv '.*' sortedFL.txt  ==> finds the lind of where it is located
+        -->sed -E '{1d}' sortedFL.txt > sortedF1.txt
+3) Filter out all words with three consecutive of the same letters e.g. aaa,bbb...etc
+        --> grep -E "aaa" sortedF3.txt > test.txt
+
+        temp--> cat sortedF1.txt > sortedF3.txt
+
+        -->sed -E "/aaa|bbb|ccc|ddd|eee|fff|ggg|hhh|iii|jjj|kkk|mmm|nnn|lll|ooo|ppp|qqq|rrr|sss|ttt|uuu|vvv|www|xxx|yyy|zzz/d" sortedF1.txt > sortedF2.txt
+        -->grep -i -E "aaa|bbb|ccc|ddd|eee|fff|ggg|hhh|iii|jjj|kkk|mmm|nnn|lll|ooo|ppp|qqq|rrr|sss|ttt|uuu|vvv|www|xxx|yyy|zzz" sortedF1.txt > test.txt
+5)Remove all words starting with punctuation
+        -->grep -E "^[[:punct:]]" sortedF2.txt
+        -->sed -E "/^[[:punct:]]/d" sortedF2.txt > sortedF3.txt
+6)Remove all words that has numerical integers
+        -->sed -E "/[0-9]/d" sortedF3.txt > sortedF4.txt
+        -->grep -E "[0-9]" sortedF3.txt > test.txt
+7)Remove all duplicated words
+- https://unix.stackexchange.com/questions/566591/find-duplicate-repeated-or-unique-words-spanning-across-multiple-lines-in-a-file
+  
+-https://stackoverflow.com/questions/58070337/error-with-linux-uniq-command-with-redirection
+
+       -->uniq -D sortedF4.txt  ==>shows all duplicated words once
+       --> uniq sortedF4.txt > sortedF5.txt
+       --> uniq -D sortedF5.txt ==>check again, should be empty
+
+8) Remove all words ending with apostrophes s. 
+        -->grep -E \'s$ sortedF5.txt 
+        -->sed -E "/'s$/d" sortedF5.txt > sortedF6.txt
+
+9) Remove all words with random punctuation in between them (doesn't matter if the pattern is at the end or the start)
+        -->grep -E "[a-zA-Z][[:punct:]]{1,}" sortedF6.txt 
+        -->sed -E "/[a-zA-Z][[:punct:]]{1,}/d" sortedF6.txt > sortedF7.txt
+-------------------------------------------------------------------------------
+        --> sed -E "/aaa/d" sortedF3.txt > sortedF4.txt
+        --> sed -E "/bbb/d" sortedF4.txt > sortedF5.txt
+        --> sed -E "/ccc/d" sortedF5.txt > sortedF6.txt
+        --> sed -E "/ddd/d" sortedF6.txt > sortedF7.txt
+        --> sed -E "/eeee/d" sortedF7.txt > sortedF8.txt
+        --> sed -E "/fff/d" sortedF8.txt > sortedF9.txt
+        --> sed -E "/ggg/d" sortedF9.txt > sortedF10.txt
+        --> sed -E "/hhh/d" sortedF10.txt > sortedF11.txt
+        --> sed -E "/iii/d" sortedF11.txt > sortedF12.txt
+        --> sed -E "/jjj/d" sortedF12.txt > sortedF13.txt
+        --> sed -E "/kkk/d" sortedF13.txt > sortedF14.txt
+        --> sed -E "/mmm/d" sortedF14.txt > sortedF15.txt
+        --> sed -E "/nnn/d" sortedF15.txt > sortedF16.txt
+        --> sed -E "/lll/d" sortedF16.txt > sortedF17.txt
+        --> sed -E "/ooo/d" sortedF17.txt > sortedF18.txt
+        --> sed -E "/ppp/d" sortedF18.txt > sortedF19.txt
+        --> sed -E "/qqq/d" sortedF19.txt > sortedF20.txt
+        --> sed -E "/rrr/d" sortedF20.txt > sortedF21.txt
+        --> sed -E "/sss/d" sortedF21.txt > sortedF22.txt
+        --> sed -E "/ttt/d" sortedF22.txt > sortedF23.txt
+        --> sed -E "/www/d" sortedF23.txt > sortedF24.txt
+        --> sed -E "/xxx/d" sortedF24.txt > sortedF25.txt
+        --> sed -E "/yyy/d" sortedF25.txt > sortedF26.txt
+        --> sed -E "/zzz/d" sortedF26.txt > sortedF27.txt
+
+5)sed -E '{1,10d}' sortedF27.txt > sortedF28.txt 
+6)sed -E '{2,3d}' sortedF28.txt > sortedF29.txt   
+7)sed -E '{4,13d}' sortedF28.txt > sortedF29.txt -->suppose to be sortedF29.txt > sortedF30.txt
+8)sed "{3,64d}" sortedF29.txt > sortedF30.txt (made sense do this, string only contain {a,b,c}, not a real word)
+        -->suppose to be sortedF30.txt > sortedF31.txt
+-------------------------------------------------------------------------------------
+
+        --> sed -E "/a[^b-zB-Z]a/d" sortedF3.txt > sortedF4.txt
+        --> sed -E "/b[^ac-zAC-Z]b/d" sortedF4.txt > sortedF5.txt
+        --> sed -E "/c[^abd-zABD-Z']c/d" sortedF5.txt > sortedF6.txt
+        --> sed -E "/d[^a-ce-zA-CE-Z']d/d" sortedF6.txt > sortedF7.txt
+        --> sed -E "/e[^a-df-zA-DF-Z']{2,}/d" sortedF7.txt > sortedF8.txt
+        --> sed -E "/f[^a-eg-zA-EG-Z']f/d" sortedF8.txt > sortedF9.txt
+        --> sed -E "/g[^a-fh-zA-FH-Z']g/d" sortedF9.txt > sortedF10.txt
+        --> sed -E "/h[^a-gi-zA-GI-Z']h/d" sortedF10.txt > sortedF11.txt
+        --> sed -E "/i[^a-hj-zA-hj-Z']i/d" sortedF11.txt > sortedF12.txt
+        --> sed -E "/j[^a-ik-zA-IK-Z']j/d" sortedF12.txt > sortedF13.txt
+        --> sed -E "/k[^a-jm-zA-JM-Z']k/d" sortedF13.txt > sortedF14.txt
+        --> sed -E "/m[^a-kn-zA-KN-Z']m/d" sortedF14.txt > sortedF15.txt
+        --> sed -E "/n[^a-ml-zA-ML-Z']n/d" sortedF15.txt > sortedF16.txt
+        --> sed -E "/l[^a-no-zA-NO-Z']l/d" sortedF16.txt > sortedF17.txt
+        --> sed -E "/o[^a-ml-zA-ML-Z']o/d" sortedF17.txt > sortedF18.txt
+        --> sed -E "/p[^a-oq-zA-OQ-Z']p/d" sortedF18.txt > sortedF19.txt
+        --> sed -E "/q[^a-pr-zA-PR-Z']q/d" sortedF19.txt > sortedF20.txt
+        --> sed -E "/r[^a-qs-zA-QS-Z']r/d" sortedF20.txt > sortedF21.txt
+        --> sed -E "/s[^a-rt-zA-RT-Z']s/d" sortedF21.txt > sortedF22.txt
+        --> sed -E "/t[^a-su-zA-SU-Z']t/d" sortedF22.txt > sortedF23.txt
+        --> sed -E "/w[^a-vx-zA-VX-Z']w/d" sortedF23.txt > sortedF24.txt
+        --> sed -E "/x[^a-wy-zA-WY-Z']x/d" sortedF24.txt > sortedF25.txt
+        --> sed -E "/y[^a-xz-zA-RXZ-Z']y/d" sortedF25.txt > sortedF26.txt
+        --> sed -E "/z[^a-yA-Y']z/d" sortedF26.txt > sortedF27.txt
+
+
+
+24)Same with 4 but with 'W's
+        --> grep -E "w[^a-vx-zA-VX-Z']{2,}" removeVVVs.txt       
+        --> sed -E "/w[^a-vx-zA-VX-Z']{2,}/d" removeVVVs.txt > removeWWWs.txt 
+
+25)Same with 4 but with 'X's
+        --> grep -E "x[^a-wy-zA-WY-Z']{2,}" removeWWWs.txt  
+        --> sed -E "/x[^a-wy-zA-WY-Z']{2,}/d" removeWWWs.txt > removeXXXs.txt
+
+26)Same with 4 but with 'Y's
+        --> grep -E "y[^a-xz-zA-RXZ-Z']{2,}" removeXXXs.txt  
+        --> sed -E "/y[^a-xz-zA-RXZ-Z']{2,}/d" removeXXXs.txt > removeYYYs.txt
+
+27)Same with 4 but with 'Z's
+        --> grep -E "z[^a-yA-Y']{2,}" removeYYYs.txt  
+        --> sed -E "/z[^a-yA-Y']{2,}/d" removeYYYs.txt > removeZZZs.txt
+
+28)Remove all words with .,!,'.'
+        --> grep -E [\\.\\!\\,] removeZZZs.txt > test.txt
+        --> sed -E '/[\\.\\!\\,]/d' removeZZZs.txt > removeAllDots.txt
+
+29) Remove all words that has ' at the beginning part of the string     
+        --> grep -E "^[a-zA-Z][\\'][a-zA-Z]" removeAllDots.txt
+        --> sed -E "/^[a-zA-Z][\\'][a-zA-Z]/d" removeAllDots.txt > remove29.txt
+
+
+
+
+
+
+
+--------------------------------------------------------
 
 1) Sort file first. (According to ASCII) --> sorted1.txt
 2) Individualy removed unknown objects e.g. common diamond '?'   -->removed_object.txt
@@ -10,7 +136,7 @@ Filtering Rule (wlist_1)
 4) Filter out all string with 2 or more occurecnces of 'a'. This ignore apostrophes, but not other punctuations in between  
         --> sed -E "/a[^b-zB-Z']{2,}/d" removed_dotCom.txt > removeAAAs.txt
 
-5) Same with 4 but with 'b's 
+5) Same with 4 but with 'b's lines
         --> grep -E "b[^ac-zAC-Z']{2,}" removeAAAs.txt
         --> sed -E "/b[^ac-zAC-Z]{2,}/d" removeAAAs.txt > removeBBBs.txt
 
@@ -24,75 +150,98 @@ Filtering Rule (wlist_1)
 
 7)Same with 4 but with 'e's 
         --> grep -E "e[^a-df-zA-DF-Z']{2,}" removeDDDs.txt
+        --> sed -E "/e[^a-df-zA-DF-Z']{2,}/d" removeDDDs.txt > removeEEEs.txt
 
 8)Same with 4 but with 'f's 
         --> grep -E "f[^a-eg-zA-eG-Z']{2,}" removesEEE.txt
 
 9)Same with 4 but with 'g's 
         --> grep -E "g[^a-fh-zA-FH-Z']{2,}" removeFFFs.txt
+        --> sed -E "/g[^a-fh-zA-FH-Z/d']{2,}" removeFFFs.txt > removeGGGs.txt
 
 10)Same with 4 but with 'H's 
         --> grep -E "h[^a-gi-zA-GI-Z']{2,}" removeGGGs.txt
-
+        --> sed -E "/h[^a-gi-zA-GI-Z']{2,}/d" removeGGGs.txt > removeHHHs.txt 
 
 11)Same with 4 but with 'I's 
         --> grep -E "i[^a-hj-zA-hj-Z']{2,}" removeHHHs.txt
+        --> sed -E "/i[^a-hj-zA-hj-Z']{2,}/d" removeHHHs.txt > removeIIIs.txt
 
 12)Same with 4 but with 'J's 
         --> grep -E "j[^a-ik-zA-IK-Z']{2,}" removeIIIs.txt
+        --> sed -E "/j[^a-ik-zA-IK-Z']{2,}/d" removeIIIs.txt > removeJJJs.txt
 
 13)Same with 4 but with 'K's 
-        --> grep -E "K[^a-jm-zA-JM-Z']{2,}" removeJJJs.txt
+        --> grep -E "k[^a-jm-zA-JM-Z']{2,}" removeJJJs.txt
+        --> sed -E "/k[^a-jm-zA-JM-Z']{2,}/d" removeJJJs.txt > removeKKK.txt
 
 14)Same with 4 but with 'M's
-        --> grep -E "M[^a-kn-zA-KN-Z']{2,}" removeKKKs.txt
+        --> grep -E "m[^a-kn-zA-KN-Z']{2,}" removeKKKs.txt
+        --> sed -E "/m[^a-kn-zA-KN-Z']{2,}/d" removeKKK.txt > removeMMMs.txt
 
 14)Same with 4 but with 'N's
         --> grep -E "n[^a-ml-zA-ML-Z']{2,}" removeMMMs.txt
+        --> sed -E "/n[^a-ml-zA-ML-Z']{2,}/d" removeMMMs.txt > removeNNNs.txt
 
 15)Same with 4 but with 'L's
-        --> grep -E "l[^a-no-zA-NO-Z']{2,}" removeNNNs.txt              
+        --> grep -E "l[^a-no-zA-NO-Z']{2,}" removeNNNs.txt            
+        --> sed -E "/l[^a-no-zA-NO-Z']{2,}/d" removeNNNs.txt > removeLLLs.txt
 
 16)Same with 4 but with 'O's
-        --> grep -E "o[^a-mL-zA-ML-Z']{2,}" removeKKKs.txt
+        --> grep -E "o[^a-mL-zA-ML-Z']{2,}" removeLLLs.txt
+        --> sed -E "/o[^a-mL-zA-ML-Z']{2,}/d" removeLLLs.txt > removeOOOs.txt
 
 17)Same with 4 but with 'P's
         --> grep -E "p[^a-oq-zA-OQ-Z']{2,}" removeOOOs.txt
+        --> sed -E "/p[^a-oq-zA-OQ-Z']{2,}/d" removeOOOs.txt > removePPPs.txt
 
 18)Same with 4 but with 'Q's
         --> grep -E "q[^a-pr-zA-PR-Z']{2,}" removePPPs.txt
+        --> sed -E "/q[^a-pr-zA-PR-Z']{2,}/d" removePPPs.txt > removeQQQs.txt
 
 19)Same with 4 but with 'R's
         --> grep -E "r[^a-qs-zA-QS-Z']{2,}" removeQQQs.txt
+        --> sed -E "/r[^a-qs-zA-QS-Z']{2,}/d" removeQQQs.txt > removeRRRs.txt
 
 20)Same with 4 but with 'S's
-        --> grep -E "s[^a-rt-zA-RT-Z']{2,}" removeQQQs.txt                      
+        --> grep -E "s[^a-rt-zA-RT-Z']{2,}" removeRRRs.txt        
+        --> sed -E "/s[^a-rt-zA-RT-Z']{2,}/d" removeRRRs.txt > removeSSSs.txt                 
 
 21)Same with 4 but with 'T's
         --> grep -E "t[^a-su-zA-SU-Z']{2,}" removeSSSs.txt       
+        --> sed -E "/t[^a-su-zA-SU-Z']{2,}/d" removeSSSs.txt > removeTTTs.txt
 
 22)Same with 4 but with 'U's
         --> grep -E "u[^a-tv-zA-TV-Z']{2,}" removeTTTs.txt  
+        --> sed -E "/u[^a-tv-zA-TV-Z']{2,}/d" removeTTTs.txt > removeUUUs.txt
 
 23)Same with 4 but with 'V's
         --> grep -E "v[^a-uw-zA-UW-Z']{2,}" removeUUUs.txt  
+        --> sed -E "/v[^a-uw-zA-UW-Z']{2,}/d" removeUUUs.txt > removeVVVs.txt
 
 24)Same with 4 but with 'W's
-        --> grep -E "w[^a-vx-zA-VX-Z']{2,}" removeVVVs.txt              STUVWXYZ
+        --> grep -E "w[^a-vx-zA-VX-Z']{2,}" removeVVVs.txt       
+        --> sed -E "/w[^a-vx-zA-VX-Z']{2,}/d" removeVVVs.txt > removeWWWs.txt 
 
 25)Same with 4 but with 'X's
         --> grep -E "x[^a-wy-zA-WY-Z']{2,}" removeWWWs.txt  
+        --> sed -E "/x[^a-wy-zA-WY-Z']{2,}/d" removeWWWs.txt > removeXXXs.txt
 
 26)Same with 4 but with 'Y's
         --> grep -E "y[^a-xz-zA-RXZ-Z']{2,}" removeXXXs.txt  
+        --> sed -E "/y[^a-xz-zA-RXZ-Z']{2,}/d" removeXXXs.txt > removeYYYs.txt
 
 27)Same with 4 but with 'Z's
         --> grep -E "z[^a-yA-Y']{2,}" removeYYYs.txt  
+        --> sed -E "/z[^a-yA-Y']{2,}/d" removeYYYs.txt > removeZZZs.txt
 
+28)Remove all words with .,!,'.'
+        --> grep -E [\\.\\!\\,] removeZZZs.txt > test.txt
+        --> sed -E '/[\\.\\!\\,]/d' removeZZZs.txt > removeAllDots.txt
 
-
-
-
+29) Remove all words that has ' at the beginning part of the string     
+        --> grep -E "^[a-zA-Z][\\'][a-zA-Z]" removeAllDots.txt
+        --> sed -E "/^[a-zA-Z][\\'][a-zA-Z]/d" removeAllDots.txt > remove29.txt
 
 4) Filter out repetitive characters such as aaaaa       -->sed '/^aa*a$/d' removed_dotCom.txt > removedRepA.txt
 5) Filter out repetitive characters such as bbbbb       -->sed '/^bb*b$/d' removedRepA.txt > removedRepB.txt
