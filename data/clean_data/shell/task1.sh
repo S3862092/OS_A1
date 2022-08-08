@@ -8,3 +8,5 @@ sed -E "/[0-9]/d" sortedF3.txt > sortedF4.txt
 uniq sortedF4.txt > sortedF5.txt
 sed -E "/'s$/d" sortedF5.txt > sortedF6.txt
 sed -E "/[a-zA-Z][[:punct:]]{1,}/d" sortedF6.txt > sortedF7.txt
+sed -E '/^..$|^.$/d' sortedF7.txt > sortedF8.txt
+sed '/.\{15\}/d' sortedF8.txt > sortedF9.txt
