@@ -9,7 +9,7 @@ using std::endl;
 void TaskFilter(std::string fileName);
 std::vector<std::string> getWordsFromFile(std::string fileName, int numberOfLines);
 int countLines(std::string fileName);
-void sortArr(std::string*wordsArr);
+bool checkASCII(std::string word);
 
 int main(){
     std::string fileName = "data/clean_data/fullList.txt";
@@ -21,20 +21,31 @@ int main(){
 void TaskFilter(std::string fileName){
     std::ifstream file(fileName);
     std::ofstream output;
+    std::ofstream output2;  //TESTING DELETE THIS LINE LATER
     output.open("test.txt");
+    output2.open("test2.txt"); //TESTING DELETE THIS LINE LATER
     int numberOfLines = countLines(fileName);
     
     // 1. Sort file
     std::vector<std::string> wordsArr = getWordsFromFile(fileName, numberOfLines);
     std::sort(wordsArr.begin(), std::end(wordsArr));
-    /*
-    for(std::string word : wordsArr){
-        output << word << endl;
-    }*/
 
     // 2. Remove non-printable characters such as the diamond question mark object
+    int index = 0;
+    for(std::string word : wordsArr){
+        output << checkASCII(word) << endl;
+        if(checkASCII(word) == false){
+            wordsArr.erase(wordsArr.begin() + index);
+        }
+        index++;
+    }
 
+    for(std::string word : wordsArr){
+        output2 << checkASCII(word) << endl;
+    }
+    
     // 3. Filter out all words with three consecutive of the same letters e.g. aaa,bbb...etc
+
 
     // 4. Remove all words starting with punctuation
 
@@ -63,9 +74,6 @@ std::vector<std::string> getWordsFromFile(std::string fileName, int numberOfLine
     return wordsArr;
 }
 
-void sortArr(std::string* wordsArr){  
-}
-
 int countLines(std::string fileName){
     std::ifstream file(fileName);
     int lines = 0;
@@ -80,10 +88,15 @@ int countLines(std::string fileName){
     return lines;
 }
 
-void deleteNonPrintable(){
+bool checkASCII(std::string word){
+    bool result = true;
+    int ascii = 0;
+    for(char& c : word) {
+        ascii = c;
+        if (ascii < 0 || ascii > 127){
+            result = false;
 
-}
-
-void deleteThreeConsecutive(){
-
+        }
+    }
+    return result;
 }
