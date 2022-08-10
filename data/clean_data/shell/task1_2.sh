@@ -1,0 +1,1 @@
+sort fullList.txt > sortedFL.txt  

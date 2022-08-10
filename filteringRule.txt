@@ -5,8 +5,21 @@ Filtering Rule (fullList.txt)
 
 1) Sort according to alphabets (ascending) --> sortedFL.txt
 2) This command works for finding diamond question mark:
+        NOTE THAT THE TOP SECTION WORKS, BUT REMOVES IT AND LEAVES A BLANK SPACE
+        https://gist.github.com/esausilva/177b262cbfb7a81ec19b6d221c7365f8
+        # Linux
+        $ grep --color='auto' -P -n "[\x80-\xFF]" file.js
+
+        # Mac OS X after 'brew install pcre'
+        $ pcregrep --color='auto' -n "[\x80-\xFF]" file.js
+
+        https://stackoverflow.com/questions/3337936/remove-non-ascii-characters-from-csv
+        --> perl -i.bak -pe 's/[^[:ascii:]]//g' <your file>
+
+
         -->grep -axv '.*' sortedFL.txt
         -->grep -n -axv '.*' sortedFL.txt  ==> finds the lind of where it is located
+        
         -->sed -E '{1d}' sortedFL.txt > sortedF1.txt
 3) Filter out all words with three consecutive of the same letters e.g. aaa,bbb...etc
         --> grep -E "aaa" sortedF3.txt > test.txt
@@ -26,7 +39,7 @@ Filtering Rule (fullList.txt)
   
 -https://stackoverflow.com/questions/58070337/error-with-linux-uniq-command-with-redirection
 
-       -->uniq -D sortedF4.txt  ==>shows all duplicated words once
+       --> uniq -D sortedF4.txt  ==>shows all duplicated words once
        --> uniq sortedF4.txt > sortedF5.txt
        --> uniq -D sortedF5.txt ==>check again, should be empty
 

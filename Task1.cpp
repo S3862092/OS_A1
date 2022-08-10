@@ -7,21 +7,21 @@ using std::cout;
 using std::endl;
 
 void TaskFilter(std::string fileName);
-void getWordsAndLines(std::vector<std::string>*wordsArr, int*numberOfLines, std::string fileName);
 bool checkASCII(std::string word);
 bool checkTripleConsecutives(std::string word);
 bool containsWithPunctuation(std::string word);
 bool checkLength(std::string word);
 bool containsNumbers(std::string word);
 std::vector<std::string> removeDuplicates(std::vector<std::string>*wordArr);
+std::vector<std::string> removeDuplicates2(std::vector<std::string>*wordsArr, int*size);
 
 /*
-TASK TO DO: perform diff test2.txt sortedF9.txt, you will see the difference. FIX IT!
+TASK TO DO: Performance, must be less than 10 seconds
 */
 
 
 int main(){
-    std::string fileName = "data/clean_data/fullList.txt";
+    std::string fileName = "data//fullList.txt";
     TaskFilter(fileName);
     return EXIT_SUCCESS;
 }
@@ -30,7 +30,6 @@ void TaskFilter(std::string fileName){
     std::ifstream file(fileName);
     std::ofstream output;
     std::ofstream output2;  //TESTING DELETE THIS LINE LATER
-    output.open("test.txt");
     output2.open("test2.txt"); //TESTING DELETE THIS LINE LATER
 
     int numberOfLines = 0;
@@ -56,7 +55,6 @@ void TaskFilter(std::string fileName){
     }else{
         cout << "ERROR, FILE IS CLOSED!" << endl;
     }
-    cout << "numberOfLines: " << numberOfLines << endl;
 
     // STEP 2: Sort
     // Sort filtered list to remove duplicates
@@ -64,15 +62,22 @@ void TaskFilter(std::string fileName){
 
     // STEP 3: Remove Duplicate
     std::vector<std::string>*wordsArrPtr = &wordsArr;
+    int newSize = 0;
+    int*newSizePtr = &newSize;
     std::vector<std::string> newWordVector = removeDuplicates(wordsArrPtr);
-    
-    for(std::string word : wordsArr){
-        output << word << endl;
-    }
 
     for(std::string word : newWordVector){
         output2 << word << endl;
     }
+
+    /*
+    std::vector<std::string> newWordVector = removeDuplicates2(wordsArrPtr, newSizePtr);
+    cout << newSize << endl;
+    for(int i = 0; i < newSize; i++){
+        output2 << newWordVector[i] << endl;
+    }
+    */
+    
     // 1. Sort file
 
     // 2. Remove non-printable characters such as the diamond question mark object
@@ -82,7 +87,7 @@ void TaskFilter(std::string fileName){
     // 4. Remove all words starting with punctuation
 
     // 5. Remove all words that has numerical integers
-
+    // 1. Sort file
     // 6. Remove all duplicated words
 
     // 7. JOIN WITH 4. IGNORE !!Remove all words ending with apostrophes s
@@ -92,24 +97,7 @@ void TaskFilter(std::string fileName){
     // 9. Remove all words that are less than 3 and more than 15 characters long
     
     file.close();
-}
-
-void getWordsAndLines(std::vector<std::string>*wordsArr, int*lines, std::string fileName){
-    //count Words
-    std::ifstream file(fileName);
-
-    std::string line;
-    //std::vector<std::string>*wordsVec = wordsArr;
-    if(file.is_open()){
-        while(getline(file, line)){
-            if(checkASCII(line) == true){
-                wordsArr->push_back(line);
-                *lines += 1;
-            }
-        }
-    }else{
-        cout << "ERROR, FILE IS CLOSED!" << endl;
-    }
+    output.close();
 }
 
 bool checkASCII(std::string word){
@@ -169,6 +157,7 @@ bool checkLength(std::string word){
     bool result = true;
 
     int count = 0;
+    int ascii;
     for(char& c : word) {
         count ++;
     }
@@ -195,6 +184,31 @@ std::vector<std::string> removeDuplicates(std::vector<std::string>*wordsArr){
             if(currStr != prevStr){
                 newWordVector.push_back(currStr);
                 prevStr = currStr;
+            }
+        }
+    }
+    return newWordVector;
+}
+
+std::vector<std::string> removeDuplicates2(std::vector<std::string>*wordsArr, int*size){
+    std::string prevStr;
+    std::string currStr;
+    std::vector<std::string>newWordVector;
+    newWordVector.reserve(wordsArr->size());
+    int *newSize = size;
+    int run = 1;
+    for(std::string word : *wordsArr){
+        if(run == 1){
+            prevStr = word;
+            newWordVector[run-1] = prevStr;
+            run++;
+            *newSize += 1;
+        }else{
+            currStr = word;
+            if(currStr != prevStr){
+                newWordVector[run-1] = prevStr;
+                prevStr = currStr;
+                *newSize += 1;
             }
         }
     }
