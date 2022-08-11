@@ -15,21 +15,43 @@ bool containsNumbers(std::string word);
 std::vector<std::string> removeDuplicates(std::vector<std::string>*wordArr);
 std::vector<std::string> removeDuplicates2(std::vector<std::string>*wordsArr, int*size);
 
+bool checkASCII_2(std::string word);
+
 /*
 TASK TO DO: Performance, must be less than 10 seconds
+
+70% of shufFl.txt = 2,556,855 lines
 */
 
+// Filter Rule
+// 1. Remove non-printable characters such as the diamond question mark object
+// 2. Filter out all words with three consecutive of the same letters e.g. aaa,bbb...etc
+// 3. Remove all words starting with punctuation
+// 4. Remove all words that has numerical integers
+// 5. Sort file
+// 6. Remove all duplicated words
+// 7. JOIN WITH 4. IGNORE !!Remove all words ending with apostrophes s
+// 8. JOIN WITH 4. IGNORE !!Remove all words with random punctuation or symbols in between them (doesn't matter if the pattern is at the end or the start)
+// 9. Remove all words that are less than 3 and more than 15 characters long
+
+//Cross validation
+/*
+    1. Take fullList.txt and shuffle
+    2. Take 70% of the file and p
+*/
 
 int main(){
-    std::string fileName = "data//fullList.txt";
+    std::string fileName = "DirtyTrainSet.txt";
     TaskFilter(fileName);
     return EXIT_SUCCESS;
 }
 
+//should be TaskFilter(Clean file, Dirty file)
 void TaskFilter(std::string fileName){
     std::ifstream file(fileName);
     std::ofstream output;
     std::ofstream output2;  //TESTING DELETE THIS LINE LATER
+    output.open("test.txt");
     output2.open("test2.txt"); //TESTING DELETE THIS LINE LATER
 
     int numberOfLines = 0;
@@ -43,11 +65,16 @@ void TaskFilter(std::string fileName){
     // NOTES: When the algorithm was modified to read and add words to the vector instead,
     //        of constantly running multiple for loops to check each rule, the run time
     //        improved from an estimate of 33s to 6s. 
+    int index = 0;
     if(file.is_open()){
         while(getline(file, line)){
+            /*
             if(checkASCII(line) == true && checkTripleConsecutives(line) == false && 
                 containsWithPunctuation(line) == false && checkLength(line) != false &&
-                containsNumbers(line) != true){
+                containsNumbers(line) != true){*/
+            
+            if(checkASCII_2(line) == true && checkTripleConsecutives(line) == false &&
+               checkLength(line) != false){
                 wordsArr.push_back(line);
                 numberOfLines += 1;
             }
@@ -62,8 +89,7 @@ void TaskFilter(std::string fileName){
 
     // STEP 3: Remove Duplicate
     std::vector<std::string>*wordsArrPtr = &wordsArr;
-    int newSize = 0;
-    int*newSizePtr = &newSize;
+    int*numberOfLinesPtr = &numberOfLines;
     std::vector<std::string> newWordVector = removeDuplicates(wordsArrPtr);
 
     for(std::string word : newWordVector){
@@ -78,26 +104,25 @@ void TaskFilter(std::string fileName){
     }
     */
     
-    // 1. Sort file
-
-    // 2. Remove non-printable characters such as the diamond question mark object
-    
-    // 3. Filter out all words with three consecutive of the same letters e.g. aaa,bbb...etc
-
-    // 4. Remove all words starting with punctuation
-
-    // 5. Remove all words that has numerical integers
-    // 1. Sort file
-    // 6. Remove all duplicated words
-
-    // 7. JOIN WITH 4. IGNORE !!Remove all words ending with apostrophes s
-
-    // 8. JOIN WITH 4. IGNORE !!Remove all words with random punctuation or symbols in between them (doesn't matter if the pattern is at the end or the start)
-
-    // 9. Remove all words that are less than 3 and more than 15 characters long
-    
     file.close();
     output.close();
+}
+
+//Treat punctuations and numbers as non-ascii as well -->rephrase this later...
+bool checkASCII_2(std::string word){
+    bool result = true;
+    int ascii = 0;
+    for(char& c : word) {
+        ascii = c;
+        if((ascii < 0 || ascii > 127) == true|| ((ascii >= 33 && ascii <= 47) || 
+            (ascii >= 58 && ascii <= 64) || (ascii >= 91 && ascii <= 96) || 
+            (ascii >=  123 && ascii <= 126)) == true || (ascii >= 48 && ascii <= 57) == true){
+
+            result = false;    
+        }
+    }
+
+    return result;
 }
 
 bool checkASCII(std::string word){
@@ -194,23 +219,20 @@ std::vector<std::string> removeDuplicates2(std::vector<std::string>*wordsArr, in
     std::string prevStr;
     std::string currStr;
     std::vector<std::string>newWordVector;
-    newWordVector.reserve(wordsArr->size());
-    int *newSize = size;
+    newWordVector.reserve(*size);
     int run = 1;
     for(std::string word : *wordsArr){
         if(run == 1){
             prevStr = word;
             newWordVector[run-1] = prevStr;
-            run++;
-            *newSize += 1;
         }else{
             currStr = word;
             if(currStr != prevStr){
-                newWordVector[run-1] = prevStr;
+                newWordVector[run-1] = currStr;
                 prevStr = currStr;
-                *newSize += 1;
             }
         }
+        run++;
     }
     return newWordVector;
 }
