@@ -13,9 +13,6 @@ bool containsWithPunctuation(std::string word);
 bool checkLength(std::string word);
 bool containsNumbers(std::string word);
 std::vector<std::string> removeDuplicates(std::vector<std::string>*wordArr);
-std::vector<std::string> removeDuplicates2(std::vector<std::string>*wordsArr, int*size);
-
-bool checkASCII_2(std::string word);
 
 /*
 TASK TO DO: Performance, must be less than 10 seconds
@@ -65,15 +62,10 @@ void TaskFilter(std::string fileName){
     // NOTES: When the algorithm was modified to read and add words to the vector instead,
     //        of constantly running multiple for loops to check each rule, the run time
     //        improved from an estimate of 33s to 6s. 
-    int index = 0;
     if(file.is_open()){
         while(getline(file, line)){
-            /*
-            if(checkASCII(line) == true && checkTripleConsecutives(line) == false && 
-                containsWithPunctuation(line) == false && checkLength(line) != false &&
-                containsNumbers(line) != true){*/
             
-            if(checkASCII_2(line) == true && checkTripleConsecutives(line) == false &&
+            if(checkASCII(line) == true && checkTripleConsecutives(line) == false &&
                checkLength(line) != false){
                 wordsArr.push_back(line);
                 numberOfLines += 1;
@@ -89,27 +81,18 @@ void TaskFilter(std::string fileName){
 
     // STEP 3: Remove Duplicate
     std::vector<std::string>*wordsArrPtr = &wordsArr;
-    int*numberOfLinesPtr = &numberOfLines;
     std::vector<std::string> newWordVector = removeDuplicates(wordsArrPtr);
 
     for(std::string word : newWordVector){
         output2 << word << endl;
     }
-
-    /*
-    std::vector<std::string> newWordVector = removeDuplicates2(wordsArrPtr, newSizePtr);
-    cout << newSize << endl;
-    for(int i = 0; i < newSize; i++){
-        output2 << newWordVector[i] << endl;
-    }
-    */
     
     file.close();
     output.close();
 }
 
 //Treat punctuations and numbers as non-ascii as well -->rephrase this later...
-bool checkASCII_2(std::string word){
+bool checkASCII(std::string word){
     bool result = true;
     int ascii = 0;
     for(char& c : word) {
@@ -122,18 +105,6 @@ bool checkASCII_2(std::string word){
         }
     }
 
-    return result;
-}
-
-bool checkASCII(std::string word){
-    bool result = true;
-    int ascii = 0;
-    for(char& c : word) {
-        ascii = c;
-        if (ascii < 0 || ascii > 127){
-            result = false;
-        }
-    }
     return result;
 }
 
@@ -166,6 +137,7 @@ bool checkTripleConsecutives(std::string word){
     return false;
 }
 
+//remove later
 bool containsWithPunctuation(std::string word){
     bool result = false;
     int ascii = 0;
@@ -182,7 +154,6 @@ bool checkLength(std::string word){
     bool result = true;
 
     int count = 0;
-    int ascii;
     for(char& c : word) {
         count ++;
     }
@@ -215,28 +186,7 @@ std::vector<std::string> removeDuplicates(std::vector<std::string>*wordsArr){
     return newWordVector;
 }
 
-std::vector<std::string> removeDuplicates2(std::vector<std::string>*wordsArr, int*size){
-    std::string prevStr;
-    std::string currStr;
-    std::vector<std::string>newWordVector;
-    newWordVector.reserve(*size);
-    int run = 1;
-    for(std::string word : *wordsArr){
-        if(run == 1){
-            prevStr = word;
-            newWordVector[run-1] = prevStr;
-        }else{
-            currStr = word;
-            if(currStr != prevStr){
-                newWordVector[run-1] = currStr;
-                prevStr = currStr;
-            }
-        }
-        run++;
-    }
-    return newWordVector;
-}
-
+//remove later
 bool containsNumbers(std::string word){
     bool result = false;
     int ascii = 0;

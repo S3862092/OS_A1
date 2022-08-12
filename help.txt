@@ -1,5 +1,5 @@
 ----------------------
-Useful Links
+Useful Links (TASK 1)
 ----------------------
 
 Linux filtering commands: 
@@ -25,3 +25,8 @@ Grep:
 sed: 
     https://www.geeksforgeeks.org/sed-command-in-linux-unix-with-examples/
 
+----------------------
+Useful Links (TASK 2)
+----------------------
+Map Reduce c++:
+    https://github.com/cdmh/mapreduce/blob/develop/examples/wordcount/wordcount.cpp
